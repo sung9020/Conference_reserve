@@ -1,0 +1,1 @@
+insert into APIINFO values(0,'ac9974f550cd42fe91117c769a31e233', 'KakaoAK', 'dapi.kakao.com');

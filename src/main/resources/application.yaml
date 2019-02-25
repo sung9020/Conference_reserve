@@ -1,0 +1,33 @@
+spring:
+  profiles: local
+
+  redis:
+    host: localhost
+    port: 6379
+
+  mvc:
+    view:
+      prefix: /resources/templates/
+      suffix: .hbs
+
+server:
+  tomcat:
+    accesslog:
+      pattern: common - %a %u %{yyyy-MM-dd HH:mm:ss}t "%r" %s %b
+      enabled: true
+    basedir: c:/conference/log
+  port: 9090
+
+management:
+  security:
+    enabled: false
+
+static:
+  resource:
+    location: file:///C:/conference/
+
+
+#logging:
+#  level:
+#   ROOT: DEBUG
+---
