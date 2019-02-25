@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 public class ReserveService implements ReserveInterface {
 
@@ -16,11 +18,14 @@ public class ReserveService implements ReserveInterface {
     @Override
     @Transactional
     public void setReserve(ReserveInfo_NEW reserveInfo) {
+        
 
+        reserveRepository.save(reserveInfo);
     }
 
     @Override
     public void getReserve() {
-
+        LocalDate selectDate = LocalDate.of(2019,02,25);
+        reserveRepository.findByReserveDate(selectDate);
     }
 }
