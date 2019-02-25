@@ -16,8 +16,6 @@
 
 <logger name="org.springframework" level="INFO" />
 
-<!-- TRACE > DEBUG > INFO > WARN > ERROR, 대소문자 구분 안함 -->
-<!-- profile 을 읽어서 appender 을 설정할수 있다.(phase별 파일을 안만들어도 되는 좋은 기능) -->
 <springProfile name="local">
     <root level="INFO">
         <appender-ref ref="STDOUT" />
