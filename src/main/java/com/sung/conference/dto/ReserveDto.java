@@ -19,15 +19,16 @@ public class ReserveDto {
     LocalTime startTime;
     LocalTime endTime;
 
+
     public ReserveDto(ReserveInfo entity){
-        id = entity.getId();
-        conferenceRoomName = entity.getConferenceRoomName();
-        user = entity.getUser();
-        type = entity.getType();
-        repeatCount = entity.getRepeatCount();
-        reserveDate = entity.getReserveDate();
-        startTime = entity.getStartTime();
-        endTime = entity.getEndTime();
+        this.id = entity.getId();
+        this.conferenceRoomName = entity.getConferenceRoomName();
+        this.user = entity.getUser();
+        this.type = entity.getType();
+        this.repeatCount = entity.getRepeatCount();
+        this.reserveDate = entity.getReserveDate();
+        this.startTime = entity.getStartTime();
+        this.endTime = entity.getEndTime();
     }
 
     public ReserveInfo toEntity(){
@@ -46,23 +47,29 @@ public class ReserveDto {
 
         boolean result = false;
 
-        for(ReserveDto data : reserveList){
-            if(!this.startTime.isBefore(data.startTime) || !this.startTime.isAfter(data.endTime) ){
-                result = false;
-            }else if(!this.endTime.isBefore(data.startTime) || ! this.endTime.isAfter(data.endTime)){
-                result = false;
-            }else{ // 같거나 다른 예약 시간 밖이다.
-                result = true;
+        if(reserveList.size() > 0){
+            for(ReserveDto data : reserveList){
+                if(this.conferenceRoomName.equals(data.conferenceRoomName)) {
+                    if (this.startTime.isBefore(data.startTime)) {
+                        if (this.endTime.isBefore(data.startTime) || this.endTime.equals(data.startTime)) {
+                            result = true;
+                        } else {
+                            result = false;
+                        }
+                    } else if (this.startTime.isAfter(data.endTime) || this.startTime.equals(data.endTime)) {
+                        result = true;
+                    } else {
+                        result = false;
+                    }
+                }else{
+                    result = true;
+                }
             }
-
-            // 같은 회의실
-            if(this.conferenceRoomName.equals(data.conferenceRoomName)){
-                result = false;
-            }else{
-                result = true;
-            }
+        }else{
+            //empty reserve
+            result = true;
         }
 
-        return false;
+        return result;
     }
 }

@@ -4,9 +4,9 @@ import com.sung.conference.entity.ReserveInfo;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
-import java.util.stream.Stream;
+import java.util.List;
 
 public interface ReserveRepository extends CrudRepository<ReserveInfo,String> {
 
-    Stream<ReserveInfo> findByReserveDate(LocalDate reserveDate);
+    List<ReserveInfo> findByReserveDate(LocalDate reserveDate);
 }

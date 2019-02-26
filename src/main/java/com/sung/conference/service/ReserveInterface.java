@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ReserveInterface {
 
-    ResultDto setReserve(ReserveDto request);
+    ResultDto setreserve(ReserveDto request);
 
-    List<ReserveDto> getReserve(LocalDate requestDate);
+    ResultDto getReserve(LocalDate requestDate);
 }
