@@ -53,6 +53,9 @@ public class ConferenceApplicationTests {
                 .build();
         // 예약 데이터 저장
         reserveRepository.save(reserveInfo);
+        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(LocalDate.of(2019,02,25)).stream().map(ReserveDto::new).collect(Collectors.toList());
+        // 예약 성공?
+        Assert.assertThat(reserveList.size(), CoreMatchers.is(1));
     }
 
     @Test

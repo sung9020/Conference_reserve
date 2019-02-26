@@ -1,13 +1,10 @@
 package com.sung.conference.service.impl;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sung.conference.dto.ReserveDto;
 import com.sung.conference.dto.ResultDto;
-import com.sung.conference.entity.ReserveInfo;
 import com.sung.conference.repositoy.ReserveRepository;
 import com.sung.conference.service.ReserveInterface;
 import com.sung.conference.service.constant.TypeEnum;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
