@@ -1,10 +1,15 @@
 package com.sung.conference.service;
 
-import com.sung.conference.entity.ReserveInfo_NEW;
+import com.sung.conference.dto.ReserveDto;
+import com.sung.conference.dto.ResultDto;
+import com.sung.conference.entity.ReserveInfo;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public interface ReserveInterface {
 
-    void setReserve(ReserveInfo_NEW reserveInfo);
+    ResultDto setreserve(ReserveDto request);
 
-    void getReserve();
+    ResultDto getReserve(LocalDate requestDate);
 }

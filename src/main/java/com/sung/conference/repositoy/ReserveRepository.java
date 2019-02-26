@@ -1,12 +1,12 @@
 package com.sung.conference.repositoy;
 
-import com.sung.conference.entity.ReserveInfo_NEW;
+import com.sung.conference.entity.ReserveInfo;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
 import java.util.List;
 
-public interface ReserveRepository extends CrudRepository<ReserveInfo_NEW,String> {
+public interface ReserveRepository extends CrudRepository<ReserveInfo,String> {
 
-    List<ReserveInfo_NEW> findByReserveDate(LocalDate reserveDate);
+    List<ReserveInfo> findByReserveDate(LocalDate reserveDate);
 }

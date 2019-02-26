@@ -14,10 +14,10 @@ import javax.print.DocFlavor;
 @EnableRedisRepositories
 public class RedisDataConfig {
 
-    @Value("${spring.redis.host")
+    @Value("${spring.redis.host}")
     private String host;
 
-    @Value("${spring.redis.port")
+    @Value("${spring.redis.port}")
     private int port;
 
     @Bean

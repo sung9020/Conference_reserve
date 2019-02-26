@@ -12,7 +12,7 @@ import java.time.LocalTime;
 
 @RedisHash("conference")
 @Data
-public class ReserveInfo_NEW implements Serializable {
+public class ReserveInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,7 +30,7 @@ public class ReserveInfo_NEW implements Serializable {
     LocalTime endTime;
 
     @Builder
-    public ReserveInfo_NEW(String conferenceRoomName, String user, int type, int repeatCount, LocalDate reserveDate, LocalTime startTime, LocalTime endTime){
+    public ReserveInfo(String conferenceRoomName, String user, int type, int repeatCount, LocalDate reserveDate, LocalTime startTime, LocalTime endTime){
         this.conferenceRoomName = conferenceRoomName;
         this.user = user;
         this.type = type;
