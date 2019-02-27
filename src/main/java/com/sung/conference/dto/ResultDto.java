@@ -13,5 +13,6 @@ public class ResultDto {
     String msg;
     List<ReserveDto> reserveList;
     int failCount;
+    int errorCode;
 
 }

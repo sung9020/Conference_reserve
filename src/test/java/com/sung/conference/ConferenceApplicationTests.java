@@ -39,33 +39,81 @@ public class ConferenceApplicationTests {
         reserveRepository.deleteAll();
     }
 
+    private final LocalDate testReserveDate = LocalDate.of(2019,03,01);
+    private final LocalTime testStartTime = LocalTime.of(14,00,00);
+    private final LocalTime testEndTime = LocalTime.of(15,30,00);
+
     @Test
-    public void setReserveRepository(){
+    public void setDataByReservationRepository(){
 
         ReserveInfo reserveInfo = ReserveInfo.builder()
-                .reserveDate(LocalDate.of(2019,02,25))
+                .reserveDate(testReserveDate)
                 .conferenceRoomName("회의실A")
                 .user("성민규")
-                .type(TypeEnum.NORMAL.getType())
+                .conferenceType(TypeEnum.NORMAL.getType())
                 .repeatCount(0)
                 .startTime(LocalTime.of(14,00,00))
                 .endTime(LocalTime.of(15,00,00))
                 .build();
         // 예약 데이터 저장
         reserveRepository.save(reserveInfo);
-        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(LocalDate.of(2019,02,25)).stream().map(ReserveDto::new).collect(Collectors.toList());
+        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(testReserveDate).stream().map(ReserveDto::new).collect(Collectors.toList());
         // 예약 성공?
         Assert.assertThat(reserveList.size(), CoreMatchers.is(1));
+    }
+
+    @Test
+    public void getDataByReserveRepository() {
+
+        ReserveInfo existInfo = ReserveInfo.builder()
+                .reserveDate(LocalDate.of(2019,03,01))
+                .conferenceRoomName(ConferenceRoomEnum.ROOM_A.getRoomName())
+                .user("성민규")
+                .conferenceType(TypeEnum.NORMAL.getType())
+                .repeatCount(0)
+                .startTime(LocalTime.of(14,00,00))
+                .endTime(LocalTime.of(15,00,00))
+                .build();
+
+        reserveRepository.save(existInfo);
+
+        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(LocalDate.of(2019,03,1)).stream().map(ReserveDto::new).collect(Collectors.toList());
+        // 예약 조회
+        Assert.assertThat(reserveList.size(), CoreMatchers.is(1));
+    }
+
+
+    @Test
+    public void getReservationTest() {
+
+        ReserveInfo existInfo = ReserveInfo.builder()
+                .reserveDate(LocalDate.of(2019,03,01))
+                .conferenceRoomName(ConferenceRoomEnum.ROOM_A.getRoomName())
+                .user("성민규")
+                .conferenceType(TypeEnum.NORMAL.getType())
+                .repeatCount(0)
+                .startTime(LocalTime.of(14,00,00))
+                .endTime(LocalTime.of(15,00,00))
+                .build();
+
+        reserveRepository.save(existInfo);
+
+
+        LocalDate requestDate = LocalDate.of(2019,03,01);
+
+        ResultDto resultDto  = reserveInterface.getReservation(requestDate);
+        // 예약 조회
+        Assert.assertThat(resultDto.getReserveList().size(), CoreMatchers.is(1));
     }
 
     @Test
     public void setNormalReserveTest() {
 
         ReserveInfo existInfo = ReserveInfo.builder()
-                .reserveDate(LocalDate.of(2019,02,25))
-                .conferenceRoomName(ConferenceRoomEnum.회의실A.name())
+                .reserveDate(LocalDate.of(2019,03,01))
+                .conferenceRoomName(ConferenceRoomEnum.ROOM_A.getRoomName())
                 .user("성민규")
-                .type(TypeEnum.NORMAL.getType())
+                .conferenceType(TypeEnum.NORMAL.getType())
                 .repeatCount(0)
                 .startTime(LocalTime.of(14,00,00))
                 .endTime(LocalTime.of(15,00,00))
@@ -74,10 +122,10 @@ public class ConferenceApplicationTests {
         reserveRepository.save(existInfo);
 
         ReserveInfo reserveInfo = ReserveInfo.builder()
-                .reserveDate(LocalDate.of(2019,02,25))
-                .conferenceRoomName(ConferenceRoomEnum.회의실A.name())
+                .reserveDate(LocalDate.of(2019,03,01))
+                .conferenceRoomName(ConferenceRoomEnum.ROOM_A.getRoomName())
                 .user("성민규")
-                .type(TypeEnum.NORMAL.getType())
+                .conferenceType(TypeEnum.NORMAL.getType())
                 .repeatCount(0)
                 .startTime(LocalTime.of(13,00,00))
                 .endTime(LocalTime.of(14,30,00))
@@ -85,9 +133,9 @@ public class ConferenceApplicationTests {
 
         ReserveDto reserveDto = new ReserveDto(reserveInfo);
 
-        ResultDto result = reserveInterface.setreserve(reserveDto);
+        ResultDto result = reserveInterface.setReservation(reserveDto);
 
-        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(LocalDate.of(2019,02,25)).stream().map(ReserveDto::new).collect(Collectors.toList());
+        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(LocalDate.of(2019,03,1)).stream().map(ReserveDto::new).collect(Collectors.toList());
         // 예약 성공?
         Assert.assertThat(reserveList.size(), CoreMatchers.is(1));
     }
@@ -96,10 +144,10 @@ public class ConferenceApplicationTests {
     public void setReapeatReserveTest() {
 
         ReserveInfo existInfo = ReserveInfo.builder()
-                .reserveDate(LocalDate.of(2019,03,03))
-                .conferenceRoomName(ConferenceRoomEnum.회의실A.name())
+                .reserveDate(LocalDate.of(2019,03,8))
+                .conferenceRoomName(ConferenceRoomEnum.ROOM_A.getRoomName())
                 .user("성민규")
-                .type(TypeEnum.NORMAL.getType())
+                .conferenceType(TypeEnum.NORMAL.getType())
                 .repeatCount(0)
                 .startTime(LocalTime.of(14,00,00))
                 .endTime(LocalTime.of(15,00,00))
@@ -108,10 +156,10 @@ public class ConferenceApplicationTests {
         reserveRepository.save(existInfo);
 
         ReserveInfo reserveInfo = ReserveInfo.builder()
-                .reserveDate(LocalDate.of(2019,02,25))
-                .conferenceRoomName(ConferenceRoomEnum.회의실A.name())
+                .reserveDate(LocalDate.of(2019,03,01))
+                .conferenceRoomName(ConferenceRoomEnum.ROOM_A.getRoomName())
                 .user("성민규")
-                .type(TypeEnum.REPEAT.getType())
+                .conferenceType(TypeEnum.REPEAT.getType())
                 .repeatCount(1)
                 .startTime(LocalTime.of(13,00,00))
                 .endTime(LocalTime.of(14,00,00))
@@ -119,31 +167,12 @@ public class ConferenceApplicationTests {
 
         ReserveDto reserveDto = new ReserveDto(reserveInfo);
 
-        ResultDto result = reserveInterface.setreserve(reserveDto);
+        ResultDto result = reserveInterface.setReservation(reserveDto);
 
-        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(LocalDate.of(2019,03,04)).stream().map(ReserveDto::new).collect(Collectors.toList());
+        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(LocalDate.of(2019,03,8)).stream().map(ReserveDto::new).collect(Collectors.toList());
         // 예약 성공?
         Assert.assertThat(reserveList.size(), CoreMatchers.is(1));
     }
 
-    @Test
-    public void getReserve() {
-
-        ReserveInfo existInfo = ReserveInfo.builder()
-                .reserveDate(LocalDate.of(2019,02,25))
-                .conferenceRoomName(ConferenceRoomEnum.회의실A.name())
-                .user("성민규")
-                .type(TypeEnum.NORMAL.getType())
-                .repeatCount(0)
-                .startTime(LocalTime.of(14,00,00))
-                .endTime(LocalTime.of(15,00,00))
-                .build();
-
-        reserveRepository.save(existInfo);
-
-        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(LocalDate.of(2019,02,25)).stream().map(ReserveDto::new).collect(Collectors.toList());
-        // 예약 조회
-        Assert.assertThat(reserveList.size(), CoreMatchers.is(1));
-    }
 
 }

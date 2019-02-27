@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html xmlns="">
+<head>
+    <title>회의실 예약 하기 앱</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/handlebars-v4.0.12.js"></script>
+    <script src="/js/include_new.js"></script>
+    <script src="/js/popper.js"></script>
+    <script src="/js/jquery.datetimepicker.full.min.js"></script>
+
+    <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <script>
+        $.datetimepicker.setLocale('kr');
+    </script>
+</head>
+<body>
+<h1>회의실 날짜 선택</h1>
+
+<div id="inputTable" class="table">
+    <table class="table table-bordered">
+        <colgroup>
+            <col width="30%">
+            <col width="60%">
+        </colgroup>
+        <thead>
+        <tr>
+            <th scope="col" class="table-secondary text-center"></th>
+            <th scope="col"class="table-secondary text-center"></th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">회의실</th>
+                <td>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                            <div class="dropdown-menu">
+                                {{#conferenceRoomList}}
+                                    <a class="dropdown-item" href="javascript:void(0)">{{roomName}}</a>
+                                {{/conferenceRoomList}}
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" aria-label="" id="conferenceRoom" >
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">예약자명</th>
+                <td><input type="text" id="user"></td>
+            </tr>
+            <tr>
+                <th scope="row">예약 일자</th>
+                <td><input type="text" id="reserveDate" class="datePicker"></td>
+            </tr>
+            <tr>
+                <th scope="row">예약 시간</th>
+                <td><input type="text" id="startTime" class="timePicker">~<input type="text" id="endTime" class="timePicker"></td>
+            </tr>
+            <tr>
+                <th scope="row">회의 타입</th>
+                <td>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="conferenceType" id="normalType" value="0">
+                        <label class="form-check-label" for="normalType">일반 회의</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="conferenceType" id="repeatType" value="1">
+                        <label class="form-check-label" for="repeatType">정기 회의</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">반복 횟수(정기 회의 시 필수)</th>
+                <td><input type="text" id="repeatCount" disabled></td>
+            </tr>
+        </tbody>
+    </table>
+            <button type="button" id="reserve">예약하기</button>
+
+    <h1>예약 현황</h1>
+
+    <div class="input-group date">
+        <input type="text" id="reserveDate">
+    </div>
+    <div id="searchList" class="table">
+        <table class="table table-bordered">
+            <colgroup>
+            </colgroup>
+            <thead>
+            <tr>
+                <!--<th scope="col" class="table-secondary text-center">순서</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+
+<script>
+
+    $("#reserve").click(function() {
+        main.setReservation();
+    });
+
+
+    $(function(){
+
+        $('.datePicker').datetimepicker({
+            timepicker:false,
+            format:'Y-m-d'
+        });
+
+        $('.timePicker').datetimepicker({
+            datepicker:false,
+            format:'H:i',
+            stepping: 30
+        });
+
+        $("input[name=conferenceType]").change(function() {
+            var radioValue = $(this).val();
+
+            if (radioValue == 1) {
+                $("#repeatCount").removeAttr('disabled');
+            }else{
+                $("#repeatCount").attr('disabled','disabled');
+            }
+        });
+
+        $(".dropdown-menu").on('click', 'div a', function(){
+            $(".btn:first-child").text($(this).text());
+            $(".btn:first-child").val($(this).text());
+            $("#conferenceRoom").val($(this).text());
+        });
+
+    });
+</script>
+</html>

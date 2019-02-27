@@ -7,13 +7,14 @@ import java.awt.dnd.DropTarget;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Data // lombok
 public class ReserveDto {
     String id;
     String conferenceRoomName;
     String user;
-    int type;
+    int conferenceType;
     int repeatCount;
     LocalDate reserveDate;
     LocalTime startTime;
@@ -24,7 +25,7 @@ public class ReserveDto {
         this.id = entity.getId();
         this.conferenceRoomName = entity.getConferenceRoomName();
         this.user = entity.getUser();
-        this.type = entity.getType();
+        this.conferenceType = entity.getConferenceType();
         this.repeatCount = entity.getRepeatCount();
         this.reserveDate = entity.getReserveDate();
         this.startTime = entity.getStartTime();
@@ -35,6 +36,7 @@ public class ReserveDto {
         return ReserveInfo.builder()
                 .conferenceRoomName(conferenceRoomName)
                 .user(user)
+                .conferenceType(conferenceType)
                 .repeatCount(repeatCount)
                 .reserveDate(reserveDate)
                 .startTime(startTime)

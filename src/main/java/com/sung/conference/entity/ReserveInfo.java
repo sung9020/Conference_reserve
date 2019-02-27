@@ -20,7 +20,7 @@ public class ReserveInfo implements Serializable {
 
     String conferenceRoomName;
     String user;
-    int type;
+    int conferenceType;
     int repeatCount;
 
     @Indexed
@@ -30,10 +30,10 @@ public class ReserveInfo implements Serializable {
     LocalTime endTime;
 
     @Builder
-    public ReserveInfo(String conferenceRoomName, String user, int type, int repeatCount, LocalDate reserveDate, LocalTime startTime, LocalTime endTime){
+    public ReserveInfo(String conferenceRoomName, String user, int conferenceType, int repeatCount, LocalDate reserveDate, LocalTime startTime, LocalTime endTime){
         this.conferenceRoomName = conferenceRoomName;
         this.user = user;
-        this.type = type;
+        this.conferenceType = conferenceType;
         this.repeatCount = repeatCount;
         this.reserveDate = reserveDate;
         this.startTime = startTime;
