@@ -11,7 +11,7 @@ import java.util.Map;
 public class ResultDto {
     boolean result;
     String msg;
-    List<ReserveDto> reserveList;
+    List<ReserveDto> reservationList;
     int failCount;
     int errorCode;
 

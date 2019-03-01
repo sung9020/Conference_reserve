@@ -103,7 +103,7 @@ public class ConferenceApplicationTests {
 
         ResultDto resultDto  = reserveInterface.getReservation(requestDate);
         // 예약 조회
-        Assert.assertThat(resultDto.getReserveList().size(), CoreMatchers.is(1));
+        Assert.assertThat(resultDto.getReservationList().size(), CoreMatchers.is(1));
     }
 
     @Test

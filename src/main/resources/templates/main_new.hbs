@@ -5,10 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/handlebars-v4.0.12.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="/js/include_new.js"></script>
-    <script src="/js/popper.js"></script>
     <script src="/js/jquery.datetimepicker.full.min.js"></script>
 
     <link rel="stylesheet" href="/css/jquery.datetimepicker.min.css">
@@ -38,14 +38,14 @@
                 <td>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                            <div class="dropdown-menu">
+                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">회의실 선택</button>
+                            <ul class="dropdown-menu">
                                 {{#conferenceRoomList}}
-                                    <a class="dropdown-item" href="javascript:void(0)">{{roomName}}</a>
+                                    <ll><a class="dropdown-item" href="javascript:void(0)">{{roomName}}</a></ll>
                                 {{/conferenceRoomList}}
-                            </div>
+                            </ul>
                         </div>
-                        <input type="text" class="form-control" aria-label="" id="conferenceRoom" >
+                        <input type="text" class="form-control" aria-label="" id="conferenceRoom" value="" disabled/>
                     </div>
 
                 </td>
@@ -56,7 +56,7 @@
             </tr>
             <tr>
                 <th scope="row">예약 일자</th>
-                <td><input type="text" id="reserveDate" class="datePicker"></td>
+                <td><input type="text" id="reserveDate" class="datePicker glyphicon glyphicon-calendar"></td>
             </tr>
             <tr>
                 <th scope="row">예약 시간</th>
@@ -66,7 +66,7 @@
                 <th scope="row">회의 타입</th>
                 <td>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="conferenceType" id="normalType" value="0">
+                        <input class="form-check-input" type="radio" name="conferenceType" id="normalType" value="0" checked="checked">
                         <label class="form-check-label" for="normalType">일반 회의</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -81,24 +81,34 @@
             </tr>
         </tbody>
     </table>
-            <button type="button" id="reserve">예약하기</button>
+    <button type="button" class="btn text-dark bg-warning" id="reserve">예약하기</button>
 
     <h1>예약 현황</h1>
 
-    <div class="input-group date">
-        <input type="text" id="reserveDate">
+    <div class="input-group mb-3">
+        <input type="text" class="datePicker form-control" id="requestDate" value="{{localDate}}">
+        <div class="input-group-append">
+            <button class="btn text-dark bg-warning" type="button" id="search">조회</button>
+        </div>
     </div>
-    <div id="searchList" class="table">
-        <table class="table table-bordered">
+    <div id="reservationTable" class="table">
+        <table class="table table-bordered" data-height="400">
             <colgroup>
+                <col width="10%">
+                {{#conferenceRoomList}}
+                    <col width="10%">
+                {{/conferenceRoomList}}
             </colgroup>
-            <thead>
+            <thead id="reservationThead">
             <tr>
-                <!--<th scope="col" class="table-secondary text-center">순서</th>-->
+                    <th scope="col" class="table-secondary text-center">시간</th>
+                {{#conferenceRoomList}}
+                    <th scope="col" class="table-secondary text-center">{{roomName}}</th>
+                {{/conferenceRoomList}}
             </tr>
             </thead>
-            <tbody>
-            </tbody>
+            <tbody id="reservationTbody">
+             </tbody>
         </table>
 
     </div>
@@ -106,25 +116,65 @@
 </div>
 
 </body>
+<!--startTime, endTime -->
+<script id="time-template" type="text/x-handlebars-template">
+    \{{#for 6 22}}
+    <tr>
+            <th scope="row" class="text-center">\{{fullTimeData this '00'}}</th>
+        {{#conferenceRoomList}}
+            <td scope="col" class="text-center"></td>
+        {{/conferenceRoomList}}
+    </tr>
+    <tr>
+            <th scope="row" class="text-center">\{{fullTimeData this '30'}}</th>
+        {{#conferenceRoomList}}
+            <td scope="col" class="text-center"></td>
+        {{/conferenceRoomList}}
+    </tr>
+    \{{/for}}
+</script>
 
 <script>
-
-    $("#reserve").click(function() {
-        main.setReservation();
-    });
-
-
     $(function(){
+
+        Handlebars.registerHelper('for', function(start, end, options) {
+            var result = '';
+            for(var i = start; i <= end; i+=1)
+                result += options.fn(i);
+            return result;
+        });
+
+        Handlebars.registerHelper('fullTimeData', function(hour, minute, options) {
+            var result = '';
+            result = ('0' + hour).slice(-2) + ':' + minute;
+
+            return result;
+        });
+
+
+        main.getReservation();
 
         $('.datePicker').datetimepicker({
             timepicker:false,
-            format:'Y-m-d'
+            format:'Y-m-d',
+            mouseWheel: false
         });
 
         $('.timePicker').datetimepicker({
             datepicker:false,
+            minTime:'06:00',
+            maxTime:'22:00',
             format:'H:i',
-            stepping: 30
+            step: 30,
+            mouseWheel: false
+        });
+
+        $("#reserve").click(function() {
+            main.setReservation();
+        });
+
+        $("#search").click(function() {
+            main.getReservation();
         });
 
         $("input[name=conferenceType]").change(function() {
@@ -134,14 +184,16 @@
                 $("#repeatCount").removeAttr('disabled');
             }else{
                 $("#repeatCount").attr('disabled','disabled');
+                $("#repeatCount").val('');
             }
         });
 
-        $(".dropdown-menu").on('click', 'div a', function(){
-            $(".btn:first-child").text($(this).text());
-            $(".btn:first-child").val($(this).text());
+        $(".dropdown-menu ll a").click(function(){
             $("#conferenceRoom").val($(this).text());
+
         });
+
+
 
     });
 </script>

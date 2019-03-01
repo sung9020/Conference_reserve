@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Data // lombok
 public class ReserveDto {
@@ -19,6 +20,10 @@ public class ReserveDto {
     LocalDate reserveDate;
     LocalTime startTime;
     LocalTime endTime;
+
+    // default constructor
+    public ReserveDto(){
+    }
 
 
     public ReserveDto(ReserveInfo entity){
@@ -50,8 +55,9 @@ public class ReserveDto {
         boolean result = false;
 
         if(reserveList.size() > 0){
-            for(ReserveDto data : reserveList){
-                if(this.conferenceRoomName.equals(data.conferenceRoomName)) {
+            reserveList = reserveList.stream().filter(data -> data.getConferenceRoomName().equals(this.conferenceRoomName)).collect(Collectors.toList());
+            if(reserveList.size() > 0){
+                for(ReserveDto data : reserveList){
                     if (this.startTime.isBefore(data.startTime)) {
                         if (this.endTime.isBefore(data.startTime) || this.endTime.equals(data.startTime)) {
                             result = true;
@@ -63,12 +69,13 @@ public class ReserveDto {
                     } else {
                         result = false;
                     }
-                }else{
-                    result = true;
                 }
+            }else{
+                //empty reservation
+                result = true;
             }
         }else{
-            //empty reserve
+            //empty reservation
             result = true;
         }
 

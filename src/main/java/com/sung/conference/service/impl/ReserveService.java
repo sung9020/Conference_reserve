@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,25 +69,28 @@ public class ReserveService implements ReserveInterface {
                             failCount++;
                         }
                     }
+                }
 
-                    if(failCount == repeatCount){
-                        builder.append("정기 회의 예약에 실패했습니다. 실패횟수 : ")
-                                .append(repeatCount)
-                                .append("회(완전 실패)");
+                if(failCount == repeatCount){
+                    builder.append("정기 회의 예약에 실패했습니다. 실패횟수 : ")
+                            .append(failCount)
+                            .append("회(완전 실패)");
 
-                        result.setResult(false);
-                        result.setMsg(builder.toString());
-                    }else if(failCount > 0){
-                        builder.append("정기 회의 예약에 일부 성공했습니다. 실패횟수 : ")
-                                .append(repeatCount)
-                                .append("회");
+                    result.setResult(false);
+                    result.setErrorCode(ErrorEnum.SET_DATA_ERROR.getErrorCode());
+                    result.setMsg(builder.toString());
+                }else if(failCount > 0){
+                    builder.append("기존 예약된 회의가 있어 정기 회의 예약에 일부만 성공했습니다. \n 실패횟수 : ")
+                            .append(failCount)
+                            .append("회");
 
-                        result.setResult(true);
-                        result.setMsg(builder.toString());
-                    }else{
-                        result.setResult(true);
-                        result.setMsg(ErrorEnum.SET_DATA_COMPLETE.getMessage());
-                    }
+                    result.setResult(true);
+                    result.setErrorCode(ErrorEnum.SET_PARTIAL_DATA_COMPLETE.getErrorCode());
+                    result.setMsg(builder.toString());
+                }else{
+                    result.setResult(true);
+                    result.setErrorCode(ErrorEnum.SET_DATA_COMPLETE.getErrorCode());
+                    result.setMsg(ErrorEnum.SET_DATA_COMPLETE.getMessage());
                 }
             }
         }
@@ -103,7 +107,8 @@ public class ReserveService implements ReserveInterface {
 
         result.setResult(true);
         result.setMsg(ErrorEnum.GET_DATA_COMPLETE.getMessage());
-        result.setReserveList(reserveList);
+        result.setErrorCode(ErrorEnum.GET_DATA_COMPLETE.getErrorCode());
+        result.setReservationList(reserveList);
 
 
         return result;
@@ -118,16 +123,36 @@ public class ReserveService implements ReserveInterface {
             result.setErrorCode(ErrorEnum.REPEAT_COUNT_ERROR.getErrorCode());
         }
 
-        if(request.getStartTime().isBefore(request.getEndTime())){
+        if(request.getStartTime().isAfter(request.getEndTime())){
             result.setResult(false);
-            result.setMsg(ErrorEnum.TIME_ERROR.getMessage());
-            result.setErrorCode(ErrorEnum.TIME_ERROR.getErrorCode());
+            result.setMsg(ErrorEnum.TIME_BEFORE_AFTER_ERROR.getMessage());
+            result.setErrorCode(ErrorEnum.TIME_BEFORE_AFTER_ERROR.getErrorCode());
+        }
+
+        if(request.getStartTime().equals(request.getEndTime())){
+            result.setResult(false);
+            result.setMsg(ErrorEnum.TIME_EQUALS_ERROR.getMessage());
+            result.setErrorCode(ErrorEnum.TIME_EQUALS_ERROR.getErrorCode());
         }
 
         if(request.getReserveDate().isBefore(LocalDate.now())){
             result.setResult(false);
             result.setMsg(ErrorEnum.DATE_ERROR.getMessage());
             result.setErrorCode(ErrorEnum.DATE_ERROR.getErrorCode());
+        }
+
+        if(request.getStartTime().isBefore(LocalTime.of(6,00))
+                || request.getEndTime().isBefore(LocalTime.of(6,00))){
+            result.setResult(false);
+            result.setMsg(ErrorEnum.TIME_LIMIT_ERROR.getMessage());
+            result.setErrorCode(ErrorEnum.TIME_LIMIT_ERROR.getErrorCode());
+        }
+
+        if(request.getStartTime().isAfter(LocalTime.of(22,00))
+                || request.getEndTime().isAfter(LocalTime.of(22,00))){
+            result.setResult(false);
+            result.setMsg(ErrorEnum.TIME_LIMIT_ERROR.getMessage());
+            result.setErrorCode(ErrorEnum.TIME_LIMIT_ERROR.getErrorCode());
         }
 
         return result;

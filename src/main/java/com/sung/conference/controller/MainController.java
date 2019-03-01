@@ -1,17 +1,12 @@
 package com.sung.conference.controller;
 
-import com.sung.conference.dto.ReserveDto;
 import com.sung.conference.dto.ResultDto;
 import com.sung.conference.service.ReserveInterface;
 import com.sung.conference.service.constant.ConferenceRoomEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
