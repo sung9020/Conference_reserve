@@ -80,7 +80,7 @@ http:/localhost:9090/main
 **- 예약 하기 스크린샷**  
 - 원하는 예약정보를 적은 후에 예약하기 버튼을 누른다. 
 
-![setreserve](https://user-images.githubusercontent.com/38482334/53679666-cd9f8500-3d12-11e9-9287-731a642a2ae0.JPG)  
+![image](https://user-images.githubusercontent.com/38482334/53685608-50026600-3d60-11e9-9b60-4b2b2709b151.png)
 
 
 **- 예약 현황 스크린샷**  
@@ -88,6 +88,7 @@ http:/localhost:9090/main
 - 정기 회의의 경우 회의 예약 내역에 (정기회의) 표기가 붙는다.  
 - 예약된 시간대는 같은 색깔로 표기가 된다. 
 
-![getreserve](https://user-images.githubusercontent.com/38482334/53679665-cd9f8500-3d12-11e9-93eb-8cefc15406a2.JPG)  
+![image](https://user-images.githubusercontent.com/38482334/53685596-2fd2a700-3d60-11e9-87cf-511f76d18b69.png)
+
 
 
