@@ -1,66 +1,66 @@
-# È¸ÀÇ½Ç ¿¹¾àÇÏ±â ¾Û
+# íšŒì˜ì‹¤ ì˜ˆì•½í•˜ê¸° ì•±
 
-**- ±¸Çö È¯°æ**  
+**- êµ¬í˜„ í™˜ê²½**  
 Spring boot  
 Java 1.8  
 Gradle  
 Embedded Redis
 
-**- ´ÜÀ§ Å×½ºÆ®**  
+**- ë‹¨ìœ„ í…ŒìŠ¤íŠ¸**  
 
-1) ¼Ò½º ÃÖ»ó´ÜÀÇ ¿¹¾à ³¯Â¥¿Í ¿¹¾à ½Ã°£, È¸ÀÇ½ÇÀ» Á¶Á¤ÇÏ¿© Å×½ºÆ® °¡´ÉÇÏ´Ù.  
-2) ±âº»ÀûÀÎ ÀûÀç ¹× »ùÇÃ Á¶Á¤, ¸ðµç Å×½ºÆ® ÄÉÀÌ½º¿¡ ±âº» ¿¹¾à µ¥ÀÌÅÍ(º¯¼ö¸í : test~)  
-3) ÀÏ¹Ý ¿¹¾à Å×½ºÆ®(º¯¼ö¸í : normal~)  
-4) Á¤±â ¿¹¾à Å×½ºÆ®(º¯¼ö¸í : repeat~) 
+1) ì†ŒìŠ¤ ìµœìƒë‹¨ì˜ ì˜ˆì•½ ë‚ ì§œì™€ ì˜ˆì•½ ì‹œê°„, íšŒì˜ì‹¤ì„ ì¡°ì •í•˜ì—¬ í…ŒìŠ¤íŠ¸ ê°€ëŠ¥í•˜ë‹¤.  
+2) ê¸°ë³¸ì ì¸ ì ìž¬ ë° ìƒ˜í”Œ ì¡°ì •, ëª¨ë“  í…ŒìŠ¤íŠ¸ ì¼€ì´ìŠ¤ì— ê¸°ë³¸ ì˜ˆì•½ ë°ì´í„°(ë³€ìˆ˜ëª… : test~)  
+3) ì¼ë°˜ ì˜ˆì•½ í…ŒìŠ¤íŠ¸(ë³€ìˆ˜ëª… : normal~)  
+4) ì •ê¸° ì˜ˆì•½ í…ŒìŠ¤íŠ¸(ë³€ìˆ˜ëª… : repeat~) 
 
-   - redis¿¡ ¿¹¾à µ¥ÀÌÅÍ ÀÔ·ÂÇÏ±â(ConferenceApplicationTests.setDataByReservationRepositoryForTest)  
-   - ÀÏ¹ÝÈ¸ÀÇ ¿¹¾àÇÏ±â(ConferenceApplicationTests.setNormalReserveForTest)  
-   - Á¤±âÈ¸ÀÇ ¿¹¾àÇÏ±â(ConferenceApplicationTests.setReapeatReserveForTest)    
-   - Æ¯Á¤ÀÏÀÇ ¿¹¾àµ¥ÀÌÅÍ °¡Á®¿À±â(ConferenceApplicationTests.getReservationForTest)  
+   - redisì— ì˜ˆì•½ ë°ì´í„° ìž…ë ¥í•˜ê¸°(ConferenceApplicationTests.setDataByReservationRepositoryForTest)  
+   - ì¼ë°˜íšŒì˜ ì˜ˆì•½í•˜ê¸°(ConferenceApplicationTests.setNormalReserveForTest)  
+   - ì •ê¸°íšŒì˜ ì˜ˆì•½í•˜ê¸°(ConferenceApplicationTests.setReapeatReserveForTest)    
+   - íŠ¹ì •ì¼ì˜ ì˜ˆì•½ë°ì´í„° ê°€ì ¸ì˜¤ê¸°(ConferenceApplicationTests.getReservationForTest)  
 
-   - API ÄÁÆ®·Ñ·¯ÀÇ POST Å×½ºÆ®(ReserveApiContrllerTest.controllerTestForPost)
-   - API ÄÁÆ®·Ñ·¯ÀÇ PUT Å×½ºÆ®(ReserveApiContrllerTest.controllerTestForPut)
+   - API ì»¨íŠ¸ë¡¤ëŸ¬ì˜ POST í…ŒìŠ¤íŠ¸(ReserveApiContrllerTest.controllerTestForPost)
+   - API ì»¨íŠ¸ë¡¤ëŸ¬ì˜ PUT í…ŒìŠ¤íŠ¸(ReserveApiContrllerTest.controllerTestForPut)
 
  
 
-**- ºôµå ¹æ¹ý**  
-ÇÁ·ÎÁ§Æ® ·çÆ® > gradle build
+**- ë¹Œë“œ ë°©ë²•**  
+í”„ë¡œì íŠ¸ ë£¨íŠ¸ > gradle build
 
 
-**- redis Á¢±Ù IP, PORT(local)**  
+**- redis ì ‘ê·¼ IP, PORT(local)**  
 IP : 127.0.0.1  
 PORT : 63700
 
 
-**- »ç¿ëÇÏ´Â redis ÀÚ·áÇü**  
-SET : ÀúÀåÇÑ ¿¹¾àÁ¤º¸ EntityÀÇ HASH °ªÀÌ ÀúÀåµÈ´Ù.  
-HASH : ¾Õ¼­ ÀúÀåÇÑ HASH °ªÀ» ÀÌ¿ëÇÏ¿© ¿¹¾àÁ¤º¸ Entity(ReserveInfo)¸¦ ÀúÀåÇÑ´Ù.  
-¿¹¾àÀÏÀÌ °¡Àå Áß¿äÇÏ¹Ç·Î ¿¹¾à³¯(reserveDate)¸¦ index Ã³¸®ÇÑ´Ù.  
+**- ì‚¬ìš©í•˜ëŠ” redis ìžë£Œí˜•**  
+SET : ì €ìž¥í•œ ì˜ˆì•½ì •ë³´ Entityì˜ HASH ê°’ì´ ì €ìž¥ëœë‹¤.  
+HASH : ì•žì„œ ì €ìž¥í•œ HASH ê°’ì„ ì´ìš©í•˜ì—¬ ì˜ˆì•½ì •ë³´ Entity(ReserveInfo)ë¥¼ ì €ìž¥í•œë‹¤.  
+ì˜ˆì•½ì¼ì´ ê°€ìž¥ ì¤‘ìš”í•˜ë¯€ë¡œ ì˜ˆì•½ë‚ (reserveDate)ë¥¼ index ì²˜ë¦¬í•œë‹¤.  
 
 
-**- Á¢¼ÓURL**  
+**- ì ‘ì†URL**  
 http:/localhost:9090  
 http:/localhost:9090/main
 
 
-**- ¹®Á¦ ÇØ°á Àü·«**  
-1. ÀÎ¸Þ¸ð¸® DB¸¦ ¹» ¼±ÅÃÇÒ±î? : ¼÷·ÃµÇ¾î ÀÖ°í, ¼­¹ö ±¸µ¿ ½Ã¿¡ ¹Ù·Î ½ÇÇà°¡´ÉÇÑ ÀÎº£µðµå ·¹µð½º¸¦ »ç¿ëÇÏÀÚ
-2. spring-data-redis ÀåÁ¡Àº? : crudRepository »ç¿ëÀ¸·Î DB ÀÛ¾÷ ½Ã Ãß»óÈ­ °¡´É  
-3. redisÀÇ smember ¸í·É¾î·Î entity¸¦ Á¶È¸ÇÒ ¼ö ÀÖ´Â ÇØ½¬ °ªÀ» ¾Ë ¼ö ÀÖ´Ù.  
-   - smembers conference > ÀüÃ¼ entity hash Å°¸ñ·Ï  
-   - smembers conference:reserveDate:{¿¹¾àÀÏ} > ¿¹¾àÀÏ ±âÁØ eneity hash Å°¸ñ·Ï  
-   - hgetall conference:{hash Å°} > ÇØ½¬ Å¸ÀÔÀ¸·Î ÀúÀåµÈ ¿¹¾à µ¥ÀÌÅÍ Á¶È¸  
-3. 30ºÐ ´ÜÀ§·Î ¿¹¾àÀ» °­Á¦ : VIEW´Ü¿¡¼­ À¯Àú¿¡°Ô 30ºÐ ´ÜÀ§·Î ¼±ÅÃÇÏ°Ô²û À¯µµ  
-4. ÀÏ¹Ý È¸ÀÇ, Á¤±â È¸ÀÇ ±¸ºÐ : À¯Àú°¡ ¼±ÅÃÇÑ È¸ÀÇ Å¸ÀÔÀ¸·Î ·ÎÁ÷À» ºÐ¸®  
-5. ¿¹¾à ÇÒ ¼ö ÀÖ´Â ½Ã°£À» °­Á¦·Î ÁöÁ¤ : 06~22½Ã »çÀÌ¿¡¸¸ È¸ÀÇ¸¦ ¿¹¾àÇÒ ¼ö ÀÖµµ·Ï Àû¿ë  
-6. ¿­¿¡¼­´Â ½Ã°£ °ªÀ» Ã£¾Æ¿À°í, Çà¿¡¼­´Â È¸ÀÇ½Ç ÀÌ¸§À» ¸ÅÄªÇÏ¿© È¸ÀÇ ¿¹¾à ½Ã°£ ºäÀ×
-   - ¿¹¾àÇÏ´Â ½Ã°£ÀÇ ½ÃÀÛ½Ã°£°ú ³¡½Ã°£ »çÀÌÀÇ ÀÖ´Â ¼¿À» ¸ðµÎ °°Àº ·£´ý »öÀ¸·Î »öÄ¥
-7. °íÁ¤Á¤ÀÎ ¿¡·¯ÄÚµå, °á°ú ¸Þ¼¼Áö¸¦ enumÀ¸·Î ¼¼ºÐÈ­ ¹× ÃÖ´ëÇÑ ÀÏ°ý Á¤¸®  
-8. ¹Ýº¹ÇÒ È½¼ö°¡ reaptCount ÀÌ´Ù. reaptCount = 2ÀÌ¸é ÃÑ 3°Ç ¿¹¾à. 0¹øÂ°´Â ±âº» ¿¹¾àÀÌ´Ù.  
+**- ë¬¸ì œ í•´ê²° ì „ëžµ**  
+1. ì¸ë©”ëª¨ë¦¬ DBë¥¼ ë­˜ ì„ íƒí• ê¹Œ? : ìˆ™ë ¨ë˜ì–´ ìžˆê³ , ì„œë²„ êµ¬ë™ ì‹œì— ë°”ë¡œ ì‹¤í–‰ê°€ëŠ¥í•œ ì¸ë² ë””ë“œ ë ˆë””ìŠ¤ë¥¼ ì‚¬ìš©í•˜ìž
+2. spring-data-redis ìž¥ì ì€? : crudRepository ì‚¬ìš©ìœ¼ë¡œ DB ìž‘ì—… ì‹œ ì¶”ìƒí™” ê°€ëŠ¥  
+3. redisì˜ smember ëª…ë ¹ì–´ë¡œ entityë¥¼ ì¡°íšŒí•  ìˆ˜ ìžˆëŠ” í•´ì‰¬ ê°’ì„ ì•Œ ìˆ˜ ìžˆë‹¤.  
+   - smembers conference > ì „ì²´ entity hash í‚¤ëª©ë¡  
+   - smembers conference:reserveDate:{ì˜ˆì•½ì¼} > ì˜ˆì•½ì¼ ê¸°ì¤€ eneity hash í‚¤ëª©ë¡  
+   - hgetall conference:{hash í‚¤} > í•´ì‰¬ íƒ€ìž…ìœ¼ë¡œ ì €ìž¥ëœ ì˜ˆì•½ ë°ì´í„° ì¡°íšŒ  
+3. 30ë¶„ ë‹¨ìœ„ë¡œ ì˜ˆì•½ì„ ê°•ì œ : VIEWë‹¨ì—ì„œ ìœ ì €ì—ê²Œ 30ë¶„ ë‹¨ìœ„ë¡œ ì„ íƒí•˜ê²Œë” ìœ ë„  
+4. ì¼ë°˜ íšŒì˜, ì •ê¸° íšŒì˜ êµ¬ë¶„ : ìœ ì €ê°€ ì„ íƒí•œ íšŒì˜ íƒ€ìž…ìœ¼ë¡œ ë¡œì§ì„ ë¶„ë¦¬  
+5. ì˜ˆì•½ í•  ìˆ˜ ìžˆëŠ” ì‹œê°„ì„ ê°•ì œë¡œ ì§€ì • : 06~22ì‹œ ì‚¬ì´ì—ë§Œ íšŒì˜ë¥¼ ì˜ˆì•½í•  ìˆ˜ ìžˆë„ë¡ ì ìš©  
+6. ì—´ì—ì„œëŠ” ì‹œê°„ ê°’ì„ ì°¾ì•„ì˜¤ê³ , í–‰ì—ì„œëŠ” íšŒì˜ì‹¤ ì´ë¦„ì„ ë§¤ì¹­í•˜ì—¬ íšŒì˜ ì˜ˆì•½ ì‹œê°„ ë·°ìž‰
+   - ì˜ˆì•½í•˜ëŠ” ì‹œê°„ì˜ ì‹œìž‘ì‹œê°„ê³¼ ëì‹œê°„ ì‚¬ì´ì˜ ìžˆëŠ” ì…€ì„ ëª¨ë‘ ê°™ì€ ëžœë¤ ìƒ‰ìœ¼ë¡œ ìƒ‰ì¹ 
+7. ê³ ì •ì •ì¸ ì—ëŸ¬ì½”ë“œ, ê²°ê³¼ ë©”ì„¸ì§€ë¥¼ enumìœ¼ë¡œ ì„¸ë¶„í™” ë° ìµœëŒ€í•œ ì¼ê´„ ì •ë¦¬  
+8. ë°˜ë³µí•  íšŸìˆ˜ê°€ reaptCount ì´ë‹¤. reaptCount = 2ì´ë©´ ì´ 3ê±´ ì˜ˆì•½. 0ë²ˆì§¸ëŠ” ê¸°ë³¸ ì˜ˆì•½ì´ë‹¤.  
 
-**- Å×½ºÆ® ¸ðµâ ¸¸µé½Ã¿¡ »ý°¢ÇÑ ³»¿ë**
-1. ½ÇÁ¦ ºñÁö´Ï½º ¸ðµ¨(service³ª repository Å×½ºÆ®)ÀÇ °æ¿ì´Â Å×½ºÆ® ÇÏ´Â °ø¼ö°¡ È® ÁÙ¾îµå´Â °ÍÀº º¸ÀåµÇ´Â µí ÇÏ´Ù.
-    - VIEW´Ü ¾øÀÌ ¹Ù·Î Å×½ºÆ® µÇ°í ¶Ç ³»°¡ Â§ ÀÛµ¿ÀÌ ÀßµÇ´Â°Ô ´«¿¡ ¹Ù·Î º¸ÀÌ±â ¶§¹®ÀÌ´Ù.
-2. ÄÁÆ®·Ñ·¯ ´ÜÀÇ Å×½ºÆ® ¸ðµâÀ» ¸¸µé ½Ã¿¡ Á¤»óÀûÀ¸·Î API Åë½ÅÀÌ µÇ°í ÀÖ´ÂÁö È®ÀÎ °¡´ÉÇÏ´Ù.
-    - Á¤»ó Åë½Å Á¤µµ°¡ È¿À²ÀûÀ¸·Î º¸ÀÌ°í json µ¥ÀÌÅÍ¸¦ ÇÏ³ª¾¿ º¸´õ¶óµµ ½ÇÁ¦ VIEW¿¡¼­ÀÇ Ã³¸®°¡ °ü°ÇÀÌ¹Ç·Î Å×½ºÆ® ¸ðµâÀ» ¸¸µå´Â ½Ã°£º¸´Ù VIEW¿¡¼­ Å×½ºÆÃÀ» ÁøÇàÇÏ´Â°Ô ½Ã°£ ´ÜÃàÀÌ µÇ´Â °Í °°´Ù.  
-    - ÀÏÁ¤ »ó ¿©À¯°¡ µÇ´Â »óÈ²¿¡¼­ json µ¥ÀÌÅÍ¸¦ °ËÁõÇÏ´Â ¸ðµâÀ» ÇÑ¹ø ¸¸µé¾î³õ°í ¾²¸é ºôµå/¹èÆ÷°¡ ÆíÇØÁú °Í °°´Ù.
+**- í…ŒìŠ¤íŠ¸ ëª¨ë“ˆ ë§Œë“¤ì‹œì— ìƒê°í•œ ë‚´ìš©**
+1. ì‹¤ì œ ë¹„ì§€ë‹ˆìŠ¤ ëª¨ë¸(serviceë‚˜ repository í…ŒìŠ¤íŠ¸)ì˜ ê²½ìš°ëŠ” ë‹¨ìœ„ í…ŒìŠ¤íŠ¸ë¡œ ì¸í•´ ìž‘ì—… ê³µìˆ˜ê°€ í™• ì¤„ì–´ë“œëŠ” ê²ƒì€ ë³´ìž¥ë˜ëŠ” ë“¯ í•˜ë‹¤.
+    - VIEWë‹¨ ì—†ì´ ë°”ë¡œ í…ŒìŠ¤íŠ¸ ë˜ê³  ë˜ ë‚´ê°€ ì§  ì½”ë“œê°€ ìž‘ë™ì´ ìž˜ë˜ëŠ”ê²Œ ëˆˆì— ë°”ë¡œ ë³´ì´ê¸° ë•Œë¬¸ì´ë‹¤.
+2. ì»¨íŠ¸ë¡¤ëŸ¬ ë‹¨ì˜ í…ŒìŠ¤íŠ¸ ëª¨ë“ˆì„ ë§Œë“¤ ì‹œì— ì •ìƒì ìœ¼ë¡œ API í†µì‹ ì´ ë˜ê³  ìžˆëŠ”ì§€ í™•ì¸ ê°€ëŠ¥í•˜ë‹¤.
+    - ì •ìƒ í†µì‹  ì •ë„ê°€ íš¨ìœ¨ì ìœ¼ë¡œ ë³´ì´ê³  json ë°ì´í„°ë¥¼ í•˜ë‚˜ì”© ë³´ë”ë¼ë„ ì‹¤ì œ VIEWì—ì„œì˜ ì²˜ë¦¬ê°€ ê´€ê±´ì´ë¯€ë¡œ í…ŒìŠ¤íŠ¸ ëª¨ë“ˆì„ ë§Œë“œëŠ” ì‹œê°„ë³´ë‹¤ VIEWì—ì„œ í…ŒìŠ¤íŒ…ì„ ì§„í–‰í•˜ëŠ”ê²Œ ì‹œê°„ ë‹¨ì¶•ì´ ë˜ëŠ” ê²ƒ ê°™ë‹¤.  
+    - ì¼ì • ìƒ ì—¬ìœ ê°€ ë˜ëŠ” ìƒí™©ì—ì„œ json ë°ì´í„°ë¥¼ ê²€ì¦í•˜ëŠ” ëª¨ë“ˆì„ í•œë²ˆ ë§Œë“¤ì–´ë†“ê³  ì“°ë©´ ë¹Œë“œ/ë°°í¬ê°€ íŽ¸í•´ì§ˆ ê²ƒ ê°™ë‹¤.
