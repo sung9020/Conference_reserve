@@ -21,11 +21,17 @@ Embedded Redis
 
    - API 컨트롤러의 POST 테스트(ReserveApiContrllerTest.controllerTestForPost)
    - API 컨트롤러의 PUT 테스트(ReserveApiContrllerTest.controllerTestForPut)
-
  
 
 **- 빌드 방법**  
 프로젝트 루트 > gradle build
+
+**- 실행 가능한 jar 파일 받기**
+https://github.com/sung9020/Conference_reserve/releases
+
+
+**- jar 파일 실행하기(서비스 구동)**
+java -jar -Dspring.profiles.active=local conference-0.0.1-SNAPSHOT.jar
 
 
 **- redis 접근 IP, PORT(local)**  
@@ -58,6 +64,7 @@ http:/localhost:9090/main
    - 예약하는 시간의 시작시간과 끝시간 사이의 있는 셀을 모두 같은 랜덤 색으로 색칠
 7. 고정정인 에러코드, 결과 메세지를 enum으로 세분화 및 최대한 일괄 정리  
 8. 반복할 횟수가 reaptCount 이다. reaptCount = 2이면 총 3건 예약. 0번째는 기본 예약이다.  
+
 
 **- 테스트 모듈 만들시에 생각한 내용**
 1. 실제 비지니스 모델(service나 repository 테스트)의 경우는 단위 테스트로 인해 작업 공수가 확 줄어드는 것은 보장되는 듯 하다.
