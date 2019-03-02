@@ -9,4 +9,6 @@ import java.util.List;
 public interface ReserveRepository extends CrudRepository<ReserveInfo,String> {
 
     List<ReserveInfo> findByReserveDate(LocalDate reserveDate);
+
+    List<ReserveInfo> findByReserveDateOrderByReserveDate(LocalDate reserveDate);
 }

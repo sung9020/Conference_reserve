@@ -17,7 +17,7 @@
 <logger name="org.springframework" level="INFO" />
 
 <springProfile name="local">
-    <root level="INFO">
+    <root level="info">
         <appender-ref ref="STDOUT" />
     </root>
 </springProfile>

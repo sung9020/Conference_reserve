@@ -1,16 +1,12 @@
 package com.sung.conference.controller;
 
-import com.sung.conference.dto.ReserveDto;
 import com.sung.conference.dto.ResultDto;
 import com.sung.conference.service.ReserveInterface;
+import com.sung.conference.service.constant.ConferenceRoomEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -33,29 +29,14 @@ public class MainController {
     public String main(Model model) throws Exception{
 
         LocalDate currentDate = LocalDate.now();
-        ResultDto result = reserveInterface.getReserve(currentDate);
+        ResultDto result = reserveInterface.getReservation(currentDate);
+        model.addAttribute("localDate", currentDate);
         model.addAttribute("reserveList", result);
+        model.addAttribute("conferenceRoomList", ConferenceRoomEnum.values());
 
-        return "main";
+        return "main_new";
     }
 
-    /* POST */
-    @RequestMapping(value = "/reservation", method = RequestMethod.POST)
-    public ResultDto getReservation(@RequestParam("requestDate")
-                                        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate requestDate) throws Exception{
 
-        ResultDto result = reserveInterface.getReserve(requestDate);
-
-        return result;
-    }
-
-    /* PUT */
-    @RequestMapping(value = "/reservation", method = RequestMethod.PUT)
-    public ResultDto setReservation(@RequestBody ReserveDto request) throws Exception{
-
-        ResultDto result = reserveInterface.setreserve(request);
-
-        return result;
-    }
 
 }
