@@ -7,7 +7,6 @@ import com.sung.conference.service.ReserveInterface;
 import com.sung.conference.service.constant.ErrorEnum;
 import com.sung.conference.service.constant.TypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +31,7 @@ public class ReserveService implements ReserveInterface {
         if(validateReserveData(request, result).isResult()){
             // normal
             if(request.getConferenceType() == TypeEnum.NORMAL.getType()){
-                List<ReserveDto> reserveList = reserveRepository.findByReserveDate(request.getReserveDate()).stream().map(ReserveDto::new).collect(Collectors.toList());
+                List<ReserveDto> reserveList = reserveRepository.findByReserveDateOrderByReserveDate(request.getReserveDate()).stream().map(ReserveDto::new).collect(Collectors.toList());
 
                 if(request.isEnabledReservation(reserveList)){
                     reserveRepository.save(request.toEntity());
@@ -47,10 +46,10 @@ public class ReserveService implements ReserveInterface {
             }else{ // repeat
                 int repeatCount = request.getRepeatCount();
                 int failCount = 0;
-
+                // 반복할 횟수가 reaptCount 이다. 2번이면 2번 반복. 0번째는 기본 예약이니.
                 for(int i = 0; i <= repeatCount; i++){
                     if(i == 0){
-                        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(request.getReserveDate()).stream().map(ReserveDto::new).collect(Collectors.toList());
+                        List<ReserveDto> reserveList = reserveRepository.findByReserveDateOrderByReserveDate(request.getReserveDate()).stream().map(ReserveDto::new).collect(Collectors.toList());
 
                         if(request.isEnabledReservation(reserveList)){
                             reserveRepository.save(request.toEntity());
@@ -59,7 +58,7 @@ public class ReserveService implements ReserveInterface {
                         }
                     }else{
                         LocalDate reserveDate = request.getReserveDate();
-                        reserveDate = reserveDate.plusWeeks(i);
+                        reserveDate = reserveDate.plusWeeks(1);
                         request.setReserveDate(reserveDate);
                         List<ReserveDto> reserveList = reserveRepository.findByReserveDate(request.getReserveDate()).stream().map(ReserveDto::new).collect(Collectors.toList());
 
@@ -71,10 +70,10 @@ public class ReserveService implements ReserveInterface {
                     }
                 }
 
-                if(failCount == repeatCount){
-                    builder.append("정기 회의 예약에 실패했습니다. 실패횟수 : ")
+                if(failCount == (repeatCount + 1)){
+                    builder.append("정기 회의 예약에 실패했습니다. \n 실패횟수 : ")
                             .append(failCount)
-                            .append("회(완전 실패)");
+                            .append("회(기본 예약을 포함한 완전 실패)");
 
                     result.setResult(false);
                     result.setErrorCode(ErrorEnum.SET_DATA_ERROR.getErrorCode());
@@ -103,7 +102,7 @@ public class ReserveService implements ReserveInterface {
 
         ResultDto result = new ResultDto();
 
-        List<ReserveDto> reserveList = reserveRepository.findByReserveDate(requestDate).stream().map(ReserveDto::new).collect(Collectors.toList());
+        List<ReserveDto> reserveList = reserveRepository.findByReserveDateOrderByReserveDate(requestDate).stream().map(ReserveDto::new).collect(Collectors.toList());
 
         result.setResult(true);
         result.setMsg(ErrorEnum.GET_DATA_COMPLETE.getMessage());

@@ -23,6 +23,7 @@ var main = {
                 data: conferenceInfoToJson,
                 success: function (data) {
                     alert(data.msg);
+                    main.getReservation();
                 },
                 error: function (request,status, error) {
                     alert(error);

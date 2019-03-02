@@ -18,101 +18,110 @@
     </script>
 </head>
 <body>
-<h1>회의실 날짜 선택</h1>
 
-<div id="inputTable" class="table">
-    <table class="table table-bordered">
-        <colgroup>
-            <col width="30%">
-            <col width="60%">
-        </colgroup>
-        <thead>
-        <tr>
-            <th scope="col" class="table-secondary text-center"></th>
-            <th scope="col"class="table-secondary text-center"></th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">회의실</th>
-                <td>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">회의실 선택</button>
-                            <ul class="dropdown-menu">
-                                {{#conferenceRoomList}}
-                                    <ll><a class="dropdown-item" href="javascript:void(0)">{{roomName}}</a></ll>
-                                {{/conferenceRoomList}}
-                            </ul>
-                        </div>
-                        <input type="text" class="form-control" aria-label="" id="conferenceRoom" value="" disabled/>
-                    </div>
+<div class="container-fluid">
+    <div class="row"></div>
+    <div class="row">
+        <div class="col-4">
+            <h1>회의실 날짜 선택</h1>
 
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">예약자명</th>
-                <td><input type="text" id="user"></td>
-            </tr>
-            <tr>
-                <th scope="row">예약 일자</th>
-                <td><input type="text" id="reserveDate" class="datePicker glyphicon glyphicon-calendar"></td>
-            </tr>
-            <tr>
-                <th scope="row">예약 시간</th>
-                <td><input type="text" id="startTime" class="timePicker">~<input type="text" id="endTime" class="timePicker"></td>
-            </tr>
-            <tr>
-                <th scope="row">회의 타입</th>
-                <td>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="conferenceType" id="normalType" value="0" checked="checked">
-                        <label class="form-check-label" for="normalType">일반 회의</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="conferenceType" id="repeatType" value="1">
-                        <label class="form-check-label" for="repeatType">정기 회의</label>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">반복 횟수(정기 회의 시 필수)</th>
-                <td><input type="text" id="repeatCount" disabled></td>
-            </tr>
-        </tbody>
-    </table>
-    <button type="button" class="btn text-dark bg-warning" id="reserve">예약하기</button>
+            <div id="inputTable" class="table">
+                <table class="table table-bordered">
+                    <colgroup>
+                        <col width="30%">
+                        <col width="60%">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="table-secondary text-center"></th>
+                        <th scope="col"class="table-secondary text-center"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">회의실</th>
+                        <td>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">회의실 선택</button>
+                                    <ul class="dropdown-menu">
+                                        {{#conferenceRoomList}}
+                                            <ll><a class="dropdown-item" href="javascript:void(0)">{{roomName}}</a></ll>
+                                        {{/conferenceRoomList}}
+                                    </ul>
+                                </div>
+                                <input type="text" class="form-control" aria-label="" id="conferenceRoom" value="" disabled/>
+                            </div>
 
-    <h1>예약 현황</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">예약자명</th>
+                        <td><input type="text" id="user"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">예약 일자</th>
+                        <td><input type="text" id="reserveDate" class="datePicker glyphicon glyphicon-calendar"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">예약 시간</th>
+                        <td><input type="text" id="startTime" class="timePicker">~<input type="text" id="endTime" class="timePicker"></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">회의 타입</th>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="conferenceType" id="normalType" value="0" checked="checked">
+                                <label class="form-check-label" for="normalType">일반 회의</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="conferenceType" id="repeatType" value="1">
+                                <label class="form-check-label" for="repeatType">정기 회의</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">반복 횟수(정기 회의 시 필수)</th>
+                        <td><input type="text" id="repeatCount" disabled></td>
+                    </tr>
+                    </tbody>
+                </table>
 
-    <div class="input-group mb-3">
-        <input type="text" class="datePicker form-control" id="requestDate" value="{{localDate}}">
-        <div class="input-group-append">
-            <button class="btn text-dark bg-warning" type="button" id="search">조회</button>
+                <button type="button" class="btn text-dark bg-warning" id="reserve">예약하기</button>
+            </div>
         </div>
-    </div>
-    <div id="reservationTable" class="table">
-        <table class="table table-bordered" data-height="400">
-            <colgroup>
-                <col width="10%">
-                {{#conferenceRoomList}}
-                    <col width="10%">
-                {{/conferenceRoomList}}
-            </colgroup>
-            <thead id="reservationThead">
-            <tr>
-                    <th scope="col" class="table-secondary text-center">시간</th>
-                {{#conferenceRoomList}}
-                    <th scope="col" class="table-secondary text-center">{{roomName}}</th>
-                {{/conferenceRoomList}}
-            </tr>
-            </thead>
-            <tbody id="reservationTbody">
-             </tbody>
-        </table>
+        <div class="col-6">
+            <h1>예약 현황</h1>
+
+            <div class="input-group mb-3">
+                <input type="text" class="datePicker form-control" id="requestDate" value="{{localDate}}">
+                <div class="input-group-append">
+                    <button class="btn text-dark bg-warning" type="button" id="search">조회</button>
+                </div>
+            </div>
+            <div id="reservationTable" class="table">
+                <table class="table table-bordered" data-height="400">
+                    <colgroup>
+                        <col width="10%">
+                        {{#conferenceRoomList}}
+                            <col width="10%">
+                        {{/conferenceRoomList}}
+                    </colgroup>
+                    <thead id="reservationThead">
+                    <tr>
+                        <th scope="col" class="table-secondary text-center">시간</th>
+                        {{#conferenceRoomList}}
+                            <th scope="col" class="table-secondary text-center">{{roomName}}</th>
+                        {{/conferenceRoomList}}
+                    </tr>
+                    </thead>
+                    <tbody id="reservationTbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </div>
-
 </div>
 
 </body>
@@ -150,7 +159,6 @@
 
             return result;
         });
-
 
         main.getReservation();
 
@@ -192,9 +200,6 @@
             $("#conferenceRoom").val($(this).text());
 
         });
-
-
-
     });
 </script>
 </html>

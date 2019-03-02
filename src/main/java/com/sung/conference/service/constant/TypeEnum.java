@@ -1,11 +1,6 @@
 package com.sung.conference.service.constant;
 
-import lombok.Data;
 import lombok.Getter;
-import org.springframework.core.type.filter.RegexPatternTypeFilter;
-
-import java.lang.annotation.Repeatable;
-import java.security.PrivateKey;
 
 public enum  TypeEnum {
 
