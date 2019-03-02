@@ -7,6 +7,7 @@ Gradle
 Embedded tomcat  
 Embedded Redis  
 
+
 **- 단위 테스트**  
 
 1) 소스 최상단의 예약 날짜와 예약 시간, 회의실을 조정하여 테스트 가능하다.  
@@ -26,6 +27,7 @@ Embedded Redis
 **- 빌드 방법**  
 프로젝트 루트 > gradle build  
 
+
 **- 실행 가능한 jar 파일 받기**  
 https://github.com/sung9020/Conference_reserve/releases  
 
@@ -36,7 +38,7 @@ java -jar -Dspring.profiles.active=local conference-0.0.1-SNAPSHOT.jar
 
 **- redis 접근 IP, PORT(local)**  
 IP : 127.0.0.1  
-PORT : 63700
+PORT : 63700  
 
 
 **- 사용하는 redis 자료형**  
@@ -47,7 +49,7 @@ HASH : 앞서 저장한 HASH 값을 이용하여 예약정보 Entity(ReserveInfo
 
 **- 접속URL**  
 http:/localhost:9090  
-http:/localhost:9090/main
+http:/localhost:9090/main  
 
 
 **- 문제 해결 전략**  
@@ -66,9 +68,25 @@ http:/localhost:9090/main
 8. 반복할 횟수가 reaptCount 이다. reaptCount = 2이면 총 3건 예약. 0번째는 기본 예약이다.  
 
 
-**- 테스트 모듈 만들시에 생각한 내용**
-1. 실제 비지니스 모델(service나 repository 테스트)의 경우는 단위 테스트로 인해 작업 공수가 확 줄어드는 것은 보장되는 듯 하다.
-    - VIEW단 없이 바로 테스트 되고 또 내가 짠 코드가 작동이 잘되는게 눈에 바로 보이기 때문이다.
-2. 컨트롤러 단의 테스트 모듈을 만들 시에 정상적으로 API 통신이 되고 있는지 확인 가능하다.
+**- 테스트 모듈 만들시에 생각한 내용**  
+1. 실제 비지니스 모델(service나 repository 테스트)의 경우는 단위 테스트로 인해 작업 공수가 확 줄어드는 것은 보장되는 듯 하다.  
+    - VIEW단 없이 바로 테스트 되고 또 내가 짠 코드가 작동이 잘되는게 눈에 바로 보이기 때문이다.  
+2. 컨트롤러 단의 테스트 모듈을 만들 시에 정상적으로 API 통신이 되고 있는지 확인 가능하다.  
     - 정상 통신 정도가 효율적으로 보이고 json 데이터를 하나씩 보더라도 실제 VIEW에서의 처리가 관건이므로 테스트 모듈을 만드는 시간보다 VIEW에서 테스팅을 진행하는게 시간 단축이 되는 것 같다.  
-    - 일정 상 여유가 되는 상황에서 json 데이터를 검증하는 모듈을 한번 만들어놓고 쓰면 빌드/배포가 편해질 것 같다.
+    - 일정 상 여유가 되는 상황에서 json 데이터를 검증하는 모듈을 한번 만들어놓고 쓰면 빌드/배포가 편해질 것 같다.  
+
+
+**- 예약 하기 스크린샷**  
+- 원하는 예약정보를 적은 후에 예약하기 버튼을 누른다. 
+
+![setreserve](https://user-images.githubusercontent.com/38482334/53679666-cd9f8500-3d12-11e9-9287-731a642a2ae0.JPG)  
+
+
+**- 예약 현황 스크린샷**  
+- 조회 날짜를 입력한 후에 조회 버튼을 누르면 예약 현황이 표기된다. 
+- 정기 회의의 경우 회의 예약 내역에 (정기회의) 표기가 붙는다.  
+- 예약된 시간대는 같은 색깔로 표기가 된다. 
+
+![getreserve](https://user-images.githubusercontent.com/38482334/53679665-cd9f8500-3d12-11e9-93eb-8cefc15406a2.JPG)  
+
+
