@@ -4,7 +4,8 @@
 Spring boot  
 Java 1.8  
 Gradle  
-Embedded Redis
+Embedded tomcat  
+Embedded Redis  
 
 **- 단위 테스트**  
 
