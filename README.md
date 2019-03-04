@@ -43,9 +43,8 @@ PORT : 63700
 
 
 **- 사용하는 redis 자료형**  
-SET : 저장한 예약정보 Entity의 HASH 값이 저장된다.  
-HASH : 앞서 저장한 HASH 값을 이용하여 예약정보 Entity(ReserveInfo)를 저장한다.  
-예약일이 가장 중요하므로 예약날(reserveDate)를 index 처리한다.  
+SET : 저장한 예약정보 Entity의 해시값이 저장된다.  
+HASH : 앞서 저장한 해시값을 이용하여 예약정보 Entity(ReserveInfo)를 저장한다.  
 
 
 **- 접속URL**  
@@ -57,16 +56,19 @@ http:/localhost:9090/main
 1. 인메모리 DB를 뭘 선택할까? : 숙련되어 있고, 서버 구동 시에 바로 실행가능한 인베디드 레디스를 사용하자
 2. spring-data-redis 장점은? : crudRepository 사용으로 DB 작업 시 추상화 가능  
 3. redis의 smember 명령어로 entity를 조회할 수 있는 해쉬 값을 알 수 있다.  
-   - smembers conference > 전체 entity hash 키목록  
-   - smembers conference:reserveDate:{예약일} > 예약일 기준 eneity hash 키목록  
-   - hgetall conference:{hash 키} > 해쉬 타입으로 저장된 예약 데이터 조회  
-3. 30분 단위로 예약을 강제 : VIEW단에서 유저에게 30분 단위로 선택하게끔 유도  
-4. 일반 회의, 정기 회의 구분 : 유저가 선택한 회의 타입으로 로직을 분리  
-5. 예약 할 수 있는 시간을 강제로 지정 : 06~22시 사이에만 회의를 예약할 수 있도록 적용  
-6. 열에서는 시간 값을 찾아오고, 행에서는 회의실 이름을 매칭하여 회의 예약 시간 뷰잉
+   - smembers conference -> 전체 entity hash 키목록  
+   - smembers conference:reserveDate:{예약일} -> 예약일 기준 eneity hash 키목록  
+   - hgetall conference:{hash 키} -> 해쉬 타입으로 저장된 예약 데이터 조회  
+4. 예약일이 조회 기준이 되므로 예약날(reserveDate)를 indexed 처리한다. 
+   - indexed 처리시에 예약날을 기준으로 redis 해시키 조회가 가능해진다. 
+   - smembers conference:reserveDate:{예약일} -> 예약일 기준 eneity hash 키목록  
+5. 30분 단위로 예약을 강제 : VIEW단에서 유저에게 30분 단위로 선택하게끔 유도  
+6. 일반 회의, 정기 회의 구분 : 유저가 선택한 회의 타입으로 로직을 분리  
+7. 예약 할 수 있는 시간을 강제로 지정 : 06~22시 사이에만 회의를 예약할 수 있도록 적용  
+8. 열에서는 시간 값을 찾아오고, 행에서는 회의실 이름을 매칭하여 회의 예약 시간 뷰잉
    - 예약하는 시간의 시작시간과 끝시간 사이의 있는 셀을 모두 같은 랜덤 색으로 색칠
-7. 고정정인 에러코드, 결과 메세지를 enum으로 세분화 및 최대한 일괄 정리  
-8. 반복할 횟수가 reaptCount 이다. reaptCount = 2이면 총 3건 예약(선택한 날짜의 회의실 예약 포함).  
+9. 고정정인 에러코드, 결과 메세지를 enum으로 세분화 및 최대한 일괄 정리  
+10. 반복할 횟수가 reaptCount 이다. reaptCount = 2이면 총 3건 예약(선택한 날짜의 회의실 예약 포함).  
 
 
 **- 테스트 모듈 만들시에 생각한 내용**  
