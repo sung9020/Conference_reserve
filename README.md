@@ -27,14 +27,14 @@ Embedded Redis
 **- 빌드 방법**  
 1. gradle 설치
 2. cmd창이나 터미널에서 프로젝트 루트 접근 > gradle build  
-
+3. 프로젝트 루트 접근 > build\libs 위치에 jar 파일 생성 확인
 
 **- 실행 가능한 jar 파일 받기**  
 https://github.com/sung9020/Conference_reserve/releases  
 
 
 **- jar 파일 실행하기(서비스 구동)**  
-java -jar -Dspring.profiles.active=local conference-0.0.1-SNAPSHOT.jar  
+java -jar -Dspring.profiles.active=local conference-0.0.1-SNAPSHOT.jar(jar 파일 이름)  
 
 
 **- redis 접근 IP, PORT(local)**  
